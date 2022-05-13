@@ -14,7 +14,9 @@ class FocacciaController extends Controller
      */
     public function index()
     {
-        return view('focaccia.index');
+        $datos['focaccias']= Focaccia::paginate(5);
+
+        return view('focaccia.index', $datos);
     }
 
     /**
