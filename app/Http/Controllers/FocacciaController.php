@@ -14,7 +14,7 @@ class FocacciaController extends Controller
      */
     public function index()
     {
-        //
+        return view('focaccia.index');
     }
 
     /**
@@ -24,7 +24,7 @@ class FocacciaController extends Controller
      */
     public function create()
     {
-        //
+        return view('focaccia.create');
     }
 
     /**
@@ -35,7 +35,15 @@ class FocacciaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $datosFocaccia = request()->except('_token');
+
+
+        if($request->hasFile('Foto')){
+            $datosFocaccia['Foto'] = $request->file('Foto')->store('uploads', 'public');
+        }
+
+        Focaccia::insert($datosFocaccia);
+
     }
 
     /**
@@ -55,9 +63,9 @@ class FocacciaController extends Controller
      * @param  \App\Models\focaccia  $focaccia
      * @return \Illuminate\Http\Response
      */
-    public function edit(focaccia $focaccia)
+    public function edit($id)
     {
-        //
+        return view('focaccia.edit');
     }
 
     /**
