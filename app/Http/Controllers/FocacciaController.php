@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\focaccia;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Storage;
+
 class FocacciaController extends Controller
 {
     /**
@@ -67,7 +69,8 @@ class FocacciaController extends Controller
      */
     public function edit($id)
     {
-        return view('focaccia.edit');
+        $focaccia = Focaccia::findOrFail($id);
+        return view('focaccia.edit', compact('focaccia'));
     }
 
     /**
@@ -77,9 +80,24 @@ class FocacciaController extends Controller
      * @param  \App\Models\focaccia  $focaccia
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, focaccia $focaccia)
+    public function update(Request $request, $id)
     {
-        //
+        $datosFocaccia = request()->except('_token', '_method');
+
+        if($request->hasFile('Foto')){
+            $datosFocaccia['Foto'] = $request->file('Foto')->store('uploads', 'public');
+        }
+
+        Focaccia::where('id', '=', $id)->update($datosFocaccia);
+
+        $focaccia = Focaccia::findOrFail($id);
+
+        Storage::delete('public/' . $focaccia->Foto);
+
+        return view('focaccia.edit', compact('focaccia'));
+
+
+
     }
 
     /**
@@ -88,8 +106,9 @@ class FocacciaController extends Controller
      * @param  \App\Models\focaccia  $focaccia
      * @return \Illuminate\Http\Response
      */
-    public function destroy(focaccia $focaccia)
+    public function destroy($id)
     {
-        //
+        Focaccia::destroy($id);
+        return redirect('focaccia');
     }
 }

@@ -3,15 +3,18 @@
 
 
 <label for="Nombre">Nombre</label>
-<input type="text" name="Nombre" id="Nombre"><br>
+<input type="text" name="Nombre" id="Nombre" value="{{ isset($focaccia->Nombre)?$focaccia->Nombre:'' }}"><br>
 
 <label for="Descripcion">Descripcion</label>
-<input type="text" name="Descripcion" id="Descripcion"><br>
+<input type="text" name="Descripcion" id="Descripcion" value="{{ isset($focaccia->Descripcion)?$focaccia->Descripcion:'' }}"><br>
 
 <label for="Precio">Precio</label>
-<input type="number" step="0.01" name="Precio" id="Precio"><br>
+<input type="number" step="0.01" name="Precio" id="Precio" value="{{ isset($focaccia->Precio)?$focaccia->Precio:'' }}"><br>
 
 <label for="Foto">Foto</label>
-<input type="file" name="Foto" id="Foto">
+@if(isset($focaccia->Foto))
+<img src="{{ asset('storage') . '/' . $focaccia->Foto }}" alt="" width="100">
+@endif
+<input type="file" name="Foto" id="Foto" value="{{ $focaccia->Foto }}">
 
 <input type="submit" value="Enviar datos">

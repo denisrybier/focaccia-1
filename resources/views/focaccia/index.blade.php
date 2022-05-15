@@ -21,22 +21,22 @@
                 <td>{{ $focaccia->Nombre }}</td>
                 <td>{{ $focaccia->Descripcion }}</td>
                 <td>{{ $focaccia->Precio }}</td>
-                <td>Foto
-                     <img src="{{ asset('storage') . '/' . $focaccia->Foto }}" alt="" width="100">  
+                <td>
+                    <img src="{{ asset('storage') . '/' . $focaccia->Foto }}" alt="" width="100">
                 </td>
                 <td>
-                      <a href="{{ url('/focaccia/' . $focaccia->id . '/edit') }}">
+                    <a href="{{ url('/focaccia/' . $focaccia->id . '/edit') }}">
                         Editar
-                    </a>  
+                    </a>
 
-                    Editar | Borrar
+                    |
 
-                     <form action="{{ url('/focaccia/' . $focaccia->id) }}" method="post">
+                    <form action="{{ url('/focaccia/' . $focaccia->id) }}" method="post">
                         @csrf
                         {{ method_field('DELETE') }}
-                        <input type="submit" onclick="return confirm('¿Estas seguro de eliminar este usuario')"
+                        <input type="submit" onclick="return confirm('¿Estas seguro de eliminar esta focaccia')"
                             value="Borrar">
-                    </form> 
+                    </form>
                 </td>
             </tr>
         @endforeach
