@@ -15,6 +15,6 @@
 @if(isset($focaccia->Foto))
 <img src="{{ asset('storage') . '/' . $focaccia->Foto }}" alt="" width="100">
 @endif
-<input type="file" name="Foto" id="Foto" value="{{ $focaccia->Foto }}">
+<input type="file" name="Foto" id="Foto" value="{{ isset($focaccia->Foto)?$focaccia->Foto:'' }}">
 
 <input type="submit" value="Enviar datos">
