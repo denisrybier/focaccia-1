@@ -1,4 +1,8 @@
+@extends('layouts.app')
+@section('tabla')
+
 <form action="{{ url('/focaccia') }}" method="post" enctype="multipart/form-data">
-    @csrf
+    @csrf  
     @include('focaccia.form')
 </form>
+@endsection

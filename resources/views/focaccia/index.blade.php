@@ -2,7 +2,8 @@
     {{ Session::get('mensaje') }}
 @endif --}} -->
 
-
+@extends('layouts.app')
+@section('tabla')
 <table class="table table-bordered table-dark">
     <thead>
         <tr>
@@ -29,12 +30,12 @@
                         Editar
                     </a>
 
-                    |
-
+                    
+                
                     <form action="{{ url('/focaccia/' . $focaccia->id) }}" method="post">
                         @csrf
                         {{ method_field('DELETE') }}
-                        <input type="submit" onclick="return confirm('¿Estas seguro de eliminar esta focaccia')"
+                        <input style="cursor:pointer" type="submit" onclick="return confirm('¿Estas seguro de eliminar esta focaccia')"
                             value="Borrar">
                     </form>
                 </td>
@@ -42,3 +43,4 @@
         @endforeach
     </tbody>
 </table>
+@endsection
