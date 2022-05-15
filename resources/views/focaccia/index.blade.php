@@ -1,6 +1,6 @@
-{{-- @if (Session::has('mensaje'))
+<!-- {{-- @if (Session::has('mensaje'))
     {{ Session::get('mensaje') }}
-@endif --}}
+@endif --}} -->
 
 
 <table class="table table-bordered table-dark">
@@ -22,21 +22,21 @@
                 <td>{{ $focaccia->Descripcion }}</td>
                 <td>{{ $focaccia->Precio }}</td>
                 <td>Foto
-                    {{-- <img src="{{ asset('storage') . '/' . $focaccia->Foto }}" alt="" width="100"> --}}
+                     <img src="{{ asset('storage') . '/' . $focaccia->Foto }}" alt="" width="100">  
                 </td>
                 <td>
-                    {{-- <a href="{{ url('/focaccia/' . $focaccia->id . '/edit') }}">
+                      <a href="{{ url('/focaccia/' . $focaccia->id . '/edit') }}">
                         Editar
-                    </a> --}}
+                    </a>  
 
                     Editar | Borrar
 
-                    {{-- <form action="{{ url('/focaccia/' . $focaccia->id) }}" method="post">
+                     <form action="{{ url('/focaccia/' . $focaccia->id) }}" method="post">
                         @csrf
                         {{ method_field('DELETE') }}
                         <input type="submit" onclick="return confirm('¿Estas seguro de eliminar este usuario')"
                             value="Borrar">
-                    </form> --}}
+                    </form> 
                 </td>
             </tr>
         @endforeach
