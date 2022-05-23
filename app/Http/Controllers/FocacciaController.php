@@ -16,7 +16,7 @@ class FocacciaController extends Controller
      */
     public function index()
     {
-        $datos['focaccias']= Focaccia::paginate(5);
+        $datos['focaccias']= Focaccia::paginate(20);
 
         return view('focaccia.index', $datos);
     }
@@ -38,7 +38,21 @@ class FocacciaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
+
     {
+        $campos = [
+            'Nombre' => 'required|string|max:20',
+            'Descripcion' => 'required|string|max:20000',
+            'Precio' => 'required',
+            'Foto' => 'required'
+        ];
+
+        $mensaje = [
+            'required'=>'El :attribute es requerido',
+            'Foto.required'=>'La foto es requerida'
+        ];
+
+        $this->validate($request, $campos, $mensaje);
         $datosFocaccia = request()->except('_token');
 
 
@@ -47,7 +61,7 @@ class FocacciaController extends Controller
         }
 
         Focaccia::insert($datosFocaccia);
-
+        return redirect()->route('lista');
     }
 
     /**
@@ -81,20 +95,27 @@ class FocacciaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        $datosFocaccia = request()->except('_token', '_method');
 
+    {   
+       
+        $datosFocaccia = request()->except('_token', '_method');
+        $focaccia = Focaccia::findOrFail($id);
         if($request->hasFile('Foto')){
+           
+            if(\Storage::exists($focaccia->Foto)){
+                \Storage::delete('public/' . $focaccia->Foto);
+            }
             $datosFocaccia['Foto'] = $request->file('Foto')->store('uploads', 'public');
         }
+        
 
         Focaccia::where('id', '=', $id)->update($datosFocaccia);
 
-        $focaccia = Focaccia::findOrFail($id);
+        
 
-        Storage::delete('public/' . $focaccia->Foto);
+        
 
-        return view('focaccia.edit', compact('focaccia'));
+        return redirect()->route('lista');
 
 
 

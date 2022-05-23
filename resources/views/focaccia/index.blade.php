@@ -34,6 +34,7 @@
                 
                     <form action="{{ url('/focaccia/' . $focaccia->id) }}" method="post">
                         @csrf
+                       
                         {{ method_field('DELETE') }}
                         <input style="cursor:pointer" type="submit" onclick="return confirm('¿Estas seguro de eliminar esta focaccia')"
                             value="Borrar">
